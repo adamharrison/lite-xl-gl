@@ -5,7 +5,8 @@
       "name": "OpenGL Renderer",
       "mod_version": "4",
       "version": "0.1",
-      "description": "A hardware-accelerated renderer for lite-xl."
+      "description": "A hardware-accelerated renderer for lite-xl.",
+      "path": "init.lua",
       "files": [
         {
           "arch": "x86_64-linux",
