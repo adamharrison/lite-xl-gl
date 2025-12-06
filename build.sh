@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 : ${CC=gcc}
-: ${BIN=renderer.so}
+: ${BIN=libgl.so}
 
 CFLAGS="$CFLAGS -fPIC -Ilib/lite-xl/resources/include"
 LDFLAGS="$LDFLAGS -lSDL3"
