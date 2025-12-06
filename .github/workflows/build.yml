@@ -28,8 +28,8 @@ jobs:
         with: { fetch-depth: 0, submodules: true }
       - name: Build Linux
         run: |
-          docker run -v .:/gl ghcr.io/lite-xl/lite-xl-build-box-manylinux:latest bash -c 'cd /gl && BIN=libgl.x86_64-linux.so CC=gcc ./build.sh -std=c99 -D_BSD_SOURCE -D_POSIX_SOURCE -O3 -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-x86_64-linux\"'
-          BIN=libgl.aarch64-linux.so CC=aarch64-linux-gnu-gcc AR=aarch64-linux-gnu-ar ./build.sh -O3 -std=c99 -D_BSD_SOURCE -D_POSIX_SOURCE -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-aarch64-linux\"
+          docker run -v .:/gl ghcr.io/lite-xl/lite-xl-build-box-manylinux:latest bash -c 'cd /gl && BIN=libgl.x86_64-linux.so CC=gcc ./build.sh -D_BSD_SOURCE -D_POSIX_SOURCE -O3 -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-x86_64-linux\"'
+          BIN=libgl.aarch64-linux.so CC=aarch64-linux-gnu-gcc AR=aarch64-linux-gnu-ar ./build.sh -O3 -D_BSD_SOURCE -D_POSIX_SOURCE -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-aarch64-linux\"
         
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
