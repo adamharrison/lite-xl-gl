@@ -17,10 +17,6 @@
   #include <stdalign.h>
 #endif
 
-#if __linux__ && defined(__aarch64__)
-  typedef long double max_align_t;
-#endif
-
 #include "rencache.h"
 #include "renwindow.h"
 
