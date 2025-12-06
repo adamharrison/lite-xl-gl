@@ -1,0 +1,10 @@
+{
+  "addons": [
+    {
+      "id": "gl",
+      "name": "OpenGL Renderer",
+      "mod_version": "4",
+      "description": "A hardware-accelerated renderer for lite-xl."
+    }
+  ]
+}
