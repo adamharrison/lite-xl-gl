@@ -28,10 +28,9 @@ jobs:
         with: { fetch-depth: 0, submodules: true }
       - name: Build Linux
         run: |
-          docker run -v .:/gl ghcr.io/lite-xl/lite-xl-build-box-manylinux:latest bash -c 'cd /gl && BIN=libgl.x86_64-linux.so CC=gcc ./build.sh -D_BSD_SOURCE -D_POSIX_SOURCE -O3 -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-x86_64-linux\"'
+          docker run -v .:/gl ghcr.io/lite-xl/lite-xl-build-box-manylinux:latest bash -c 'cd /gl && BIN=libgl.x86_64-linux.so CC=gcc ./build.sh -O3 -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-x86_64-linux\"'
           sudo apt-get update && sudo apt-get install gcc-14-aarch64-linux-gnu
-          BIN=libgl.aarch64-linux.so CC=aarch64-linux-gnu-gcc-14 AR=aarch64-linux-gnu-gcc-ar-14 ./build.sh -O3 -D_BSD_SOURCE -D_POSIX_SOURCE -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-aarch64-linux\"
-        
+          ./build.sh clean && BIN=libgl.aarch64-linux.so CC=aarch64-linux-gnu-gcc-14 AR=aarch64-linux-gnu-gcc-ar-14 ./build.sh -O3 -DLIBGL_VERSION=\"${{ needs.version.outputs.version }}-aarch64-linux\"
       - name: Upload Artifacts
         uses: actions/upload-artifact@v4
         with: { name: "Linux", path: "*.so" }
@@ -67,9 +66,8 @@ jobs:
       - name: Build MacOS
         env: { GITHUB_TOKEN: "${{ github.token }}" }
         run: |
-          ./build.sh clean
-          BIN=libgl.x86_64-darwin.lib CC=clang CFLAGS="-arch x86_64" CMAKE_DEFAULT_FLAGS="-DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=NEVER" ./build.sh -O3 -DLIBGL_VERSION='"'${{ needs.version.outputs.version }}-x86_64-darwin'"' -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreServices -framework Foundation
-          BIN=libgl.aarch64-darwin.lib CC=clang CFLAGS="-arch arm64" CMAKE_DEFAULT_FLAGS="-DCMAKE_OSX_ARCHITECTURES=arm64  -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=NEVER" ./build.sh -O3 -DLIBGL_VERSION='"'${{ needs.version.outputs.version }}-x86_64-darwin'"' -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreServices -framework Foundation
+          ./build.sh clean && BIN=libgl.x86_64-darwin.lib CC=clang CFLAGS="-arch x86_64" CMAKE_DEFAULT_FLAGS="-DCMAKE_OSX_ARCHITECTURES=x86_64 -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=NEVER" ./build.sh -O3 -DLIBGL_VERSION='"'${{ needs.version.outputs.version }}-x86_64-darwin'"' -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreServices -framework Foundation
+          ./build.sh clean && BIN=libgl.aarch64-darwin.lib CC=clang CFLAGS="-arch arm64" CMAKE_DEFAULT_FLAGS="-DCMAKE_OSX_ARCHITECTURES=arm64  -DCMAKE_FIND_ROOT_PATH_MODE_PROGRAM=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_LIBRARY=NEVER -DCMAKE_FIND_ROOT_PATH_MODE_INCLUDE=NEVER" ./build.sh -O3 -DLIBGL_VERSION='"'${{ needs.version.outputs.version }}-x86_64-darwin'"' -framework OpenGL -framework Cocoa -framework IOKit -framework CoreVideo -framework CoreServices -framework Foundation
       - name: Upload Artifacts -framework Foundation
         uses: actions/upload-artifact@v4
         with: { name: "MacOS", path: "*.lib" }

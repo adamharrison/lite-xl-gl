@@ -11,7 +11,7 @@ LINK_FLAGS="$LDFLAGS -lm -L`pwd`/lib/prefix/lib -L`pwd`/lib/prefix/lib64"   # An
 CMAKE_DEFAULT_FLAGS=" $CMAKE_DEFAULT_FLAGS -DCMAKE_PREFIX_PATH=`pwd`/lib/prefix -DCMAKE_INSTALL_PREFIX=`pwd`/lib/prefix -DBUILD_SHARED_LIBS=OFF"
 
 
-[[ "$@" == "clean" ]] && rm -rf *.so *.dll lib/freetype2/build lib/SDL/build lib/prefix && exit 0
+[[ "$@" == "clean" ]] && rm -rf $BIN lib/freetype2/build lib/SDL/build lib/prefix && exit 0
 [[ $OSTYPE != 'msys'* && $OSTYPE != 'cygwin'* && $CC != *'mingw'* ]] && LINK_FLAGS="$LINK_FLAGS -lutil"
 
 cmake --version >/dev/null 2>/dev/null || { echo "Please ensure that you have cmake installed." && exit -1; }
