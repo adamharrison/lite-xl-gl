@@ -716,13 +716,6 @@ double ren_draw_text(RenSurface *rs, RenFont **fonts, const char *text, size_t l
 }
 
 /******************* Rectangles **********************/
-static inline RenColor blend_pixel(RenColor dst, RenColor src) {
-  int ia = 0xff - src.a;
-  dst.r = ((src.r * src.a) + (dst.r * ia)) >> 8;
-  dst.g = ((src.g * src.a) + (dst.g * ia)) >> 8;
-  dst.b = ((src.b * src.a) + (dst.b * ia)) >> 8;
-  return dst;
-}
 
 void ren_draw_rect(RenSurface *rs, RenRect rect, RenColor color) {
   if (color.a == 0) { return; }
@@ -857,10 +850,8 @@ void ren_get_size(RenWindow *window_renderer, int *x, int *y) {
   RenSurface rs = renwin_get_surface(window_renderer);
   *x = rs.surface->w;
   *y = rs.surface->h;
-#ifdef LITE_USE_SDL_RENDERER
   *x /= rs.scale;
   *y /= rs.scale;
-#endif
 }
 
 size_t ren_get_window_list(RenWindow ***window_list_dest) {

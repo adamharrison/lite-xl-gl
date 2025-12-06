@@ -4,3 +4,6 @@
 [submodule "lib/freetype"]
 	path = lib/freetype
 	url = https://github.com/freetype/freetype.git
+[submodule "lib/SDL"]
+	path = lib/SDL
+	url = https://github.com/libsdl-org/SDL.git

@@ -49,6 +49,7 @@ typedef struct {
 typedef struct {
   RenRect rect;
   RenColor color;
+  RenColor bgcolor;
   RenFont *fonts[FONT_FALLBACK_MAX];
   float text_x;
   size_t len;
