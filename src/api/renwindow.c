@@ -10,7 +10,7 @@ static RenWindow* persistent_windows[PERSISTENT_WINDOWS_MAX] = {0};
 
 static void init_window_icon(SDL_Window *window) {
 #if !defined(_WIN32) && !defined(__APPLE__)
-  #include "../lib/lite-xl/resources/icons/icon.inl"
+  #include "../../lib/lite-xl/resources/icons/icon.inl"
   (void) icon_rgba_len; /* unused */
   SDL_PixelFormat format = SDL_GetPixelFormatForMasks(32, 0x000000ff, 0x0000ff00, 0x00ff0000, 0xff000000);
   SDL_Surface *surf = SDL_CreateSurfaceFrom(64, 64, format, icon_rgba, 64 * 4);

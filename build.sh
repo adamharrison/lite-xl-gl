@@ -47,4 +47,4 @@ if [[ "$@" != *"-lSDL"* ]]; then
 fi
 
 [[ $OSTYPE == 'msys'* || $OSTYPE == 'cygwin'* || $CC == *'mingw'* ]] && LINK_FLAGS="$LINK_FLAGS  -lgdi32 -limm32 -lsetupapi -lwinmm -lole32 -lversion -luuid"
-$CC $COMPILE_FLAGS *.c api/*.c $@ -shared -o $BIN $LINK_FLAGS
+$CC $COMPILE_FLAGS src/*.c src/api/*.c $@ -shared -o $BIN $LINK_FLAGS
